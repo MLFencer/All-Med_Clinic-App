@@ -20,19 +20,20 @@ import java.net.Socket;
 
 
 public class Client {
+
     String address, response;
     int port;
     PrintWriter out;
     BufferedReader in;
 
 
-    Client(String add, int por){
-       address=add;
-        port=por;
+    Client(){
+        address="10.0.0.34";
+        port=8088;
     }
 
-    public void setPort(int por){
-        port=por;
+    public void setPort(int port){
+        this.port=port;
     }
 
     protected String runRequest(String requestString){
@@ -42,7 +43,7 @@ public class Client {
             Log.d("Client", socket.isConnected()+"");
             out = new PrintWriter (new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out.println("patient:"+requestString);
+            out.println("clinic:"+requestString);
             Log.d("Client", "Out.Write Executed.");
             response=in.readLine();
             Log.d("Client", response);
@@ -56,7 +57,7 @@ public class Client {
 
     private static String encryptionKey(){
         Long unixTime = System.currentTimeMillis()/10000000;
-        System.out.println(unixTime);
+        System.out.println("Time: "+unixTime);
         String keyGenSeed = unixTime+"";
         String output="";
         String keyGenSeedStart=keyGenSeed;
@@ -99,40 +100,16 @@ public class Client {
         return output+keyGenSeedStart+output;
     }
 
-    protected static Object deserialize(String s) throws IOException, ClassNotFoundException{
-        String rectifiedString = s.replace("\\","");
-        byte [] data = Base64.decode(rectifiedString,0);
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-        Object o = ois.readObject();
-        ois.close();
-        return o;
-    }
-
-    protected static String serialize(Serializable o)throws IOException{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(o);
-        oos.close();
-        String output = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP|Base64.URL_SAFE);
-        Log.d("Main", output);
-        return output;
-    }
-
     protected String hashPassword(String password){
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(password);
         return textEncryptor.encrypt(password);
     }
 
-    private String deHashPassword(String hashedPassword, String pword){
+    protected String deHashPassword(String hashedPassword, String pword){
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(pword);
         return textEncryptor.decrypt(hashedPassword);
-    }
-
-    protected  boolean checkPassword(String hashedPassword, String pword){
-        String dehashed = deHashPassword(hashedPassword,pword);
-        return dehashed.equals(pword);
     }
 
     protected String encryptData(String data){
