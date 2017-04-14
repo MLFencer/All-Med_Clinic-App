@@ -28,7 +28,7 @@ public class Client {
 
 
     Client(){
-        address="10.0.0.34";
+        address="10.0.0.33";
         port=8088;
     }
 

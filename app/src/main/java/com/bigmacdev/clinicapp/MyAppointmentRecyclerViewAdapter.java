@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bigmacdev.clinicapp.AppointmentFragment.OnListFragmentInteractionListener;
-import com.bigmacdev.clinicapp.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Appointment} and makes a call to the

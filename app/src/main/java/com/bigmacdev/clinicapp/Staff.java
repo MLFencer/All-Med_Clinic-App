@@ -28,6 +28,7 @@ public class Staff implements Serializable{
         new File(path).mkdirs();
     }
 
+    public String getUsername(){return username;}
     public String getPassword(){
         return password;
     }

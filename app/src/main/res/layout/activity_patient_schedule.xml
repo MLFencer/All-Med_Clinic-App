@@ -22,6 +22,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
+            android:elevation="0dp"
             android:minWidth="150dp"
             android:textAlignment="center" />
     </LinearLayout>
@@ -32,18 +33,90 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <CalendarView
-            android:id="@+id/calendarView"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1.5" />
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/daySchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Day (DD)"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/monthSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Month (MM)"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/yearSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Year (YYYY)"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/submitSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Look Up" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -74,13 +147,14 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <AppointmentFragment
+            <fragment
                 android:id="@+id/scheduleFragment"
                 android:name="com.bigmacdev.clinicapp.AppointmentFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="5dp"
-                android:layout_weight=".5"
+                android:layout_weight="1"
                 tools:layout="@layout/fragment_appointment_list" />
         </LinearLayout>
 
@@ -89,15 +163,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/addSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="Add Appointment" />
     </LinearLayout>

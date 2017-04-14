@@ -68,6 +68,8 @@ public class AppointmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment_list, container, false);
 
+        appointments = new ArrayList<Appointment>();
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -77,7 +79,7 @@ public class AppointmentFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAppointmentRecyclerViewAdapter(appointments, mListener));
+            //recyclerView.setAdapter(new MyAppointmentRecyclerViewAdapter(appointments, mListener));
         }
         return view;
     }
@@ -115,8 +117,9 @@ public class AppointmentFragment extends Fragment {
         void onListFragmentInteraction(Appointment item);
     }
 
-    public void updateList(int day, int month, int year){
+    public void updateList(int day, int month, int year, String path){
         //Todo: get schedule from location
+        final String p = path;
         final int d = day;
         final int m = month;
         final int y = year;
@@ -127,14 +130,16 @@ public class AppointmentFragment extends Fragment {
                 job.add("day",d);
                 job.add("month",m);
                 job.add("year",y);
-                job.add("path",practice.getPath());
+                job.add("path",p);
                 JsonObject jo = job.build();
                 Client client = new Client();
                 String out = client.runRequest("scheduleGet:"+client.encryptData(jo.toString()));
-                out = client.decryptData(out);
                 if(out.equals("false")){
+                    appointments = new ArrayList<Appointment>();
                     done = false;
                 }else {
+                    out = client.decryptData(out);
+                    appointments = new ArrayList<Appointment>();
                     JsonObject j = Json.createReader(new StringReader(out)).readObject();
                     int i=0;
                     while(true){

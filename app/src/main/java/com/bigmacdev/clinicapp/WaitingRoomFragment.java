@@ -2,6 +2,7 @@ package com.bigmacdev.clinicapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bigmacdev.clinicapp.dummy.DummyContent;
-import com.bigmacdev.clinicapp.dummy.DummyContent.DummyItem;
+import java.util.ArrayList;
 
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -28,6 +27,7 @@ public class WaitingRoomFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private ArrayList<Appointment>appointments=new ArrayList<Appointment>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,7 +69,7 @@ public class WaitingRoomFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAppointmentRecyclerViewAdapter2(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyAppointmentRecyclerViewAdapter2(appointments, mListener));
         }
         return view;
     }
@@ -104,6 +104,6 @@ public class WaitingRoomFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Appointment item);
     }
 }

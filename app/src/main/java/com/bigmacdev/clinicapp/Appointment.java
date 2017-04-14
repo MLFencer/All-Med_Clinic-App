@@ -2,12 +2,17 @@ package com.bigmacdev.clinicapp;
 
 import android.support.annotation.NonNull;
 
+import net.maritimecloud.internal.core.javax.json.Json;
+import net.maritimecloud.internal.core.javax.json.JsonObject;
+import net.maritimecloud.internal.core.javax.json.JsonObjectBuilder;
+
 import java.io.Serializable;
+import java.io.StringReader;
 
 public class Appointment implements Comparable<Appointment>, Serializable{
     private static final long serialVersionUID = 45687524L;
 
-    private String first, last, reason;
+    private String first, last, reason, path, location;
     private int hour, minute, day, month, year;
 
     public Appointment(String first, String last, String reason, int hour, int minute, int day, int month, int year){
@@ -21,7 +26,19 @@ public class Appointment implements Comparable<Appointment>, Serializable{
         this.hour=hour;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public Appointment(){}
+
+    public void setPath(String s){this.path=s;}
+
+    public String getPath(){return path;}
 
     public String getName(){
         return first+" "+last;
@@ -109,6 +126,31 @@ public class Appointment implements Comparable<Appointment>, Serializable{
         m=h+this.minute;
         om=oh+other.getMinute();
         return m-om;
+    }
+
+    public String toJsonString(){
+        JsonObjectBuilder job = Json.createObjectBuilder();
+        job.add("first", first);
+        job.add("last", last);
+        job.add("day", day);
+        job.add("month", month);
+        job.add("year", year);
+        job.add("hour", hour);
+        job.add("minute", minute);
+        job.add("path", path);
+        job.add("clinicPath",location);
+        return  job.build().toString();
+    }
+
+    public void loadData(String s){
+        JsonObject jo = Json.createReader(new StringReader(s)).readObject();
+        this.first=jo.getString("first");
+        this.last=jo.getString("last");
+        this.day=jo.getInt("day");
+        this.month=jo.getInt("month");
+        this.year=jo.getInt("year");
+        this.minute=jo.getInt("minute");
+        this.hour=jo.getInt("hour");
     }
 }
 

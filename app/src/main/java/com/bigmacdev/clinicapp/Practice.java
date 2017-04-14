@@ -4,13 +4,15 @@ import net.maritimecloud.internal.core.javax.json.JsonObject;
 import net.maritimecloud.internal.core.javax.json.JsonObjectBuilder;
 
 import java.io.File;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Practice {
+public class Practice implements Serializable{
+	private static final long serialVersionUID = 35234654652L;
 	String name, address, city, state, manager, path, zip, phone;
 	int rooms;
 	ArrayList<String> staff = new ArrayList<String>();

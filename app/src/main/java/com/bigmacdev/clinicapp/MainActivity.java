@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private String temp;
     private Staff staff;
     private Boolean done;
+    private Practice clinic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,12 @@ public class MainActivity extends AppCompatActivity {
                     } else{
                         if (login()){
                             Bundle bundle = new Bundle();
+                            getClinicData();
+                            bundle.putSerializable("clinic", clinic);
                             bundle.putSerializable("staff", staff);
                             Intent intent = new Intent();
                             intent.putExtras(bundle);
-                            temp = staff.getLocation(1, 0);
+                            temp = staff.getLocation(2, 0);
                             int access = Integer.parseInt(temp.substring(0,1));
                             intent.putExtra("access",access);
                             switch (access){
@@ -97,5 +100,21 @@ public class MainActivity extends AppCompatActivity {
         }.start();
         while (done==null){}
         return done;
+    }
+
+    private void getClinicData(){
+        done = null;
+        new Thread(){
+            @Override
+            public void run() {
+                Client client = new Client();
+                temp = client.runRequest("getClinic:"+client.encryptData(staff.getLocation(2,0).substring(1,staff.getLocation(2,0).length())));
+                temp = client.decryptData(temp);
+                clinic = new Practice();
+                clinic.loadData(temp);
+                done = true;
+            }
+        }.start();
+        while(done==null){}
     }
 }
