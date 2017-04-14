@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bigmacdev.clinicapp.dummy.DummyContent;
-import com.bigmacdev.clinicapp.dummy.DummyContent.DummyItem;
 
+import net.maritimecloud.internal.core.javax.json.Json;
+import net.maritimecloud.internal.core.javax.json.JsonObject;
+import net.maritimecloud.internal.core.javax.json.JsonObjectBuilder;
+
+import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * A fragment representing a list of Items.
@@ -28,7 +31,11 @@ public class AppointmentFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+    private RecyclerView recyclerView;
+
+    private Practice practice;
     private ArrayList<Appointment> appointments;
+    private Boolean done = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -64,7 +71,7 @@ public class AppointmentFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -106,5 +113,47 @@ public class AppointmentFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Appointment item);
+    }
+
+    public void updateList(int day, int month, int year){
+        //Todo: get schedule from location
+        final int d = day;
+        final int m = month;
+        final int y = year;
+        new Thread(){
+            @Override
+            public void run() {
+                JsonObjectBuilder job = Json.createObjectBuilder();
+                job.add("day",d);
+                job.add("month",m);
+                job.add("year",y);
+                job.add("path",practice.getPath());
+                JsonObject jo = job.build();
+                Client client = new Client();
+                String out = client.runRequest("scheduleGet:"+client.encryptData(jo.toString()));
+                out = client.decryptData(out);
+                if(out.equals("false")){
+                    done = false;
+                }else {
+                    JsonObject j = Json.createReader(new StringReader(out)).readObject();
+                    int i=0;
+                    while(true){
+                        if(j.containsKey("app"+i)){
+                            JsonObject j2 = j.getJsonObject("app"+i);
+                            appointments.add(new Appointment(j2.getString("first"), j2.getString("last"), j2.getString("reason"), j2.getInt("hour"), j2.getInt("minute"), j2.getInt("day"), j2.getInt("month"), j2.getInt("year")));
+                        }else{
+                            break;
+                        }
+                        i++;
+                    }
+                }
+            }
+        }.start();
+        while (done==null){}
+        recyclerView.setAdapter(new MyAppointmentRecyclerViewAdapter(appointments, mListener));
+    }
+
+    public void setPractice(Practice p){
+        this.practice=p;
     }
 }

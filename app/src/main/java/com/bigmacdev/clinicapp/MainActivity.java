@@ -48,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
                             switch (access){
                                 case 1:
                                     intent.setClass(MainActivity.this, PatientSchedule.class);
+                                    break;
+                                case 2:
+                                    intent.setClass(MainActivity.this, PatientSchedule.class);
+                                    break;
+                                case 3:
+                                    intent.setClass(MainActivity.this, WaitingRoom.class);
+                                    break;
+                                case 4:
+                                    intent.setClass(MainActivity.this, WaitingRoom.class);
+                                    break;
                             }
                             startActivity(intent);
 

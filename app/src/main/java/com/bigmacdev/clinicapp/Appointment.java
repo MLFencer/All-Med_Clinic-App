@@ -2,7 +2,10 @@ package com.bigmacdev.clinicapp;
 
 import android.support.annotation.NonNull;
 
-public class Appointment implements Comparable<Appointment>{
+import java.io.Serializable;
+
+public class Appointment implements Comparable<Appointment>, Serializable{
+    private static final long serialVersionUID = 45687524L;
 
     private String first, last, reason;
     private int hour, minute, day, month, year;
