@@ -28,7 +28,7 @@ public class Client {
 
 
     Client(){
-        address="10.0.0.33";
+        address="10.0.0.34";
         port=8088;
     }
 
@@ -43,6 +43,7 @@ public class Client {
             Log.d("Client", socket.isConnected()+"");
             out = new PrintWriter (new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Log.d("Client", "Request String: "+requestString);
             out.println("clinic:"+requestString);
             Log.d("Client", "Out.Write Executed.");
             response=in.readLine();

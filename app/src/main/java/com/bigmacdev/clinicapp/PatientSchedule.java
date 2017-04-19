@@ -28,7 +28,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
     private EditText day,month,year;
     private AppointmentFragment fragment;
     private Practice clinic;
-    private Staff staff;
+    //private Staff staff;
     private int x;
 
     @Override
@@ -38,7 +38,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
 
         Bundle bundle = new Bundle();
         bundle = this.getIntent().getExtras();
-        staff =(Staff)bundle.getSerializable("staff");
+        //staff =(Staff)bundle.getSerializable("staff");
         clinic = (Practice)bundle.getSerializable("clinic");
 
         fragment = (AppointmentFragment)getSupportFragmentManager().findFragmentById(R.id.scheduleFragment);
@@ -86,13 +86,13 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
         menuItems.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        x = Integer.parseInt(staff.getLocation(2, 0).substring(0,1));
+        //x = Integer.parseInt(staff.getLocation(2, 0).substring(0,1));
 
-        if(x==1){
+       // if(x==1){
             menu.setAdapter(managerMenu);
-        }else{
-            menu.setAdapter(menuItems);
-        }
+       // }else{
+         //   menu.setAdapter(menuItems);
+        //}
 
         menu.setOnItemSelectedListener(menuSelected);
 
@@ -105,10 +105,10 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent();
             Bundle b = new Bundle();
-            b.putSerializable("staff", staff);
+           // b.putSerializable("staff", staff);
             b.putSerializable("clinic", clinic);
             intent.putExtras(b);
-            if(x==1) {
+            //if(x==1) {
                 switch (position) {
                     case 0:
                         break;
@@ -132,7 +132,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
                         startActivity(intent);
                         break;
                 }
-            }else{
+           /* }else{
                 switch (position) {
                     case 0:
                         break;
@@ -152,7 +152,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
                         startActivity(intent);
                         break;
                 }
-            }
+            }*/
         }
 
         @Override
@@ -178,7 +178,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
             Intent intent = new Intent();
             Bundle b = new Bundle();
             b.putSerializable("clinic", clinic);
-            b.putSerializable("staff", staff);
+            //b.putSerializable("staff", staff);
             intent.putExtras(b);
             intent.setClass(PatientSchedule.this, CreateAppointment.class);
             startActivity(intent);
@@ -192,7 +192,7 @@ public class PatientSchedule extends AppCompatActivity implements AppointmentFra
         Bundle bundle = new Bundle();
         bundle.putSerializable("app", item);
         bundle.putSerializable("clinic",clinic);
-        bundle.putSerializable("staff",staff);
+        //bundle.putSerializable("staff",staff);
         intent.putExtras(bundle);
         intent.setClass(PatientSchedule.this, AppointmentView.class);
         startActivity(intent);

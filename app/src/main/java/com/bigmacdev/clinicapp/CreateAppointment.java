@@ -14,9 +14,9 @@ public class CreateAppointment extends AppCompatActivity {
 
     private EditText first, last, day, month, year, minute, hour, reason;
     private Button submit;
-    private Staff staff;
+    //private Staff staff;
     private Practice clinic;
-    private MicroPatient patient;
+    private Patient patient;
     private Appointment appointment;
     private Boolean done;
 
@@ -40,12 +40,12 @@ public class CreateAppointment extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle = this.getIntent().getExtras();
         clinic = (Practice)bundle.getSerializable("clinic");
-        staff = (Staff)bundle.getSerializable("staff");
+        //staff = (Staff)bundle.getSerializable("staff");
         if (bundle.containsKey("patient")){
-            patient = (MicroPatient)bundle.getSerializable("patient");
-            first.setText(patient.getFirst());
-            last.setText(patient.getLast());
-            appointment.setPath(patient.getLocation());
+            patient = (Patient)bundle.getSerializable("patient");
+            first.setText(patient.getfName());
+            last.setText(patient.getlName());
+            appointment.setPath(patient.getPath());
         } else{
             new AlertDialog.Builder(CreateAppointment.this)
                     .setTitle("Patient Information Alert")
@@ -62,7 +62,7 @@ public class CreateAppointment extends AppCompatActivity {
                             Intent intent = new Intent();
                             Bundle b = new Bundle();
                             b.putSerializable("clinic", clinic);
-                            b.putSerializable("staff",staff);
+                            //b.putSerializable("staff",staff);
                             intent.putExtras(b);
                             intent.setClass(CreateAppointment.this, PatientList.class);
                             startActivity(intent);
@@ -96,10 +96,10 @@ public class CreateAppointment extends AppCompatActivity {
                 Intent intent = new Intent();
                 Bundle b = new Bundle();
                 b.putSerializable("clinic", clinic);
-                b.putSerializable("staff", staff);
+                //b.putSerializable("staff", staff);
                 intent.putExtras(b);
                 intent.setClass(CreateAppointment.this, PatientSchedule.class);
-                startActivity(intent);
+                //startActivity(intent);
 
             } else {
                 Toast.makeText(CreateAppointment.this, "Missing Fields!", Toast.LENGTH_SHORT).show();

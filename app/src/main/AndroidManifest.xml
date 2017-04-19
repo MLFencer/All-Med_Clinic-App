@@ -20,22 +20,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WaitingRoom"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".PatientSchedule"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".AppointmentView"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".AddUser1"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".AddUser2"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".ExamRooms"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".PatientList"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".CreateAppointment"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".WaitingRoom"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PatientSchedule"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AppointmentView"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AddUser1"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AddUser2"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ExamRooms"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PatientList"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CreateAppointment"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PatientView"
+            android:screenOrientation="landscape" />
+        <activity android:name=".CreateScript"></activity>
     </application>
 
 </manifest>

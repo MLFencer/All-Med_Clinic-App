@@ -25,6 +25,14 @@ public class MyAppointmentRecyclerViewAdapter extends RecyclerView.Adapter<MyApp
         mListener = listener;
     }
 
+    public void updateAppsList(ArrayList<Appointment> list){
+        if(mValues!=null){
+            mValues.clear();
+        }
+        mValues.addAll(list);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

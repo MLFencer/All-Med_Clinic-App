@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.putExtras(bundle);
                             temp = staff.getLocation(2, 0);
-                            int access = Integer.parseInt(temp.substring(0,1));
-                            intent.putExtra("access",access);
-                            switch (access){
+                           // int access = Integer.parseInt(temp.substring(0,1));
+                           // intent.putExtra("access",access);
+                            /*switch (access){
                                 case 1:
                                     intent.setClass(MainActivity.this, PatientSchedule.class);
                                     break;
@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
                                 case 4:
                                     intent.setClass(MainActivity.this, WaitingRoom.class);
                                     break;
-                            }
+                            }*/
+                            intent.setClass(MainActivity.this, PatientSchedule.class);
                             startActivity(intent);
 
                         } else {
@@ -108,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Client client = new Client();
-                temp = client.runRequest("getClinic:"+client.encryptData(staff.getLocation(2,0).substring(1,staff.getLocation(2,0).length())));
+                Log.d("Main", "Request: "+staff.getLocation(2,0).substring(0,staff.getLocation(2,0).length()));
+                temp = client.runRequest("getClinic:"+client.encryptData(staff.getLocation(2,0)));
                 temp = client.decryptData(temp);
                 clinic = new Practice();
                 clinic.loadData(temp);
